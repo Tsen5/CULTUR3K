@@ -6,6 +6,7 @@ import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 
 import "react-native-reanimated";
 
+import "../global.css";
 import "../localization";
 
 export default function RootLayout() {
