@@ -4,6 +4,8 @@ import { StatusBar } from "expo-status-bar";
 
 import "react-native-reanimated";
 
+import "../localization";
+
 export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
