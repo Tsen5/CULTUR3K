@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { BookAPISearchResult } from "@/types/book";
+import { BookAPISearchResult, BookAPIWorkInfo } from "@/types/book";
 
 const http = axios.create({
   baseURL: "https://openlibrary.org",
@@ -13,4 +13,5 @@ export const booksAPI = {
         q: query,
       },
     }),
+  getWork: (key: string) => http.get<BookAPIWorkInfo>(`${key}.json`),
 };

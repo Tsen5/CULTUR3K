@@ -1,6 +1,9 @@
 import axios from "axios";
 
-import { VideoGameAPISearchResult } from "@/types/videoGame";
+import {
+  VideoGameAPISearchResult,
+  VideoGameAPIVideoGameInfo,
+} from "@/types/videoGame";
 
 const http = axios.create({
   baseURL: "https://api.rawg.io/api",
@@ -16,4 +19,6 @@ export const videoGamesAPI = {
         search: query,
       },
     }),
+  getVideoGame: (id: number) =>
+    http.get<VideoGameAPIVideoGameInfo>(`/games/${id}`),
 };

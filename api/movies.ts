@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { MovieAPISearchResult } from "@/types/movie";
+import { MovieAPIMovieInfo, MovieAPISearchResult } from "@/types/movie";
 
 const http = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -16,4 +16,5 @@ export const moviesAPI = {
         query,
       },
     }),
+  getMovie: (id: number) => http.get<MovieAPIMovieInfo>(`/movie/${id}`),
 };
