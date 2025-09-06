@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 import {
   VideoGameAPISearchResult,
@@ -13,12 +13,13 @@ const http = axios.create({
 });
 
 export const videoGamesAPI = {
-  searchVideoGames: (query: string) =>
+  searchVideoGames: (query: string, config?: AxiosRequestConfig) =>
     http.get<VideoGameAPISearchResult>("/games", {
       params: {
         search: query,
       },
+      ...config,
     }),
-  getVideoGame: (id: number) =>
-    http.get<VideoGameAPIVideoGameInfo>(`/games/${id}`),
+  getVideoGame: (id: number, config?: AxiosRequestConfig) =>
+    http.get<VideoGameAPIVideoGameInfo>(`/games/${id}`, config),
 };

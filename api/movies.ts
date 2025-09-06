@@ -1,4 +1,6 @@
-import axios from "axios";
+// https://developer.themoviedb.org/reference/intro/getting-started
+
+import axios, { AxiosRequestConfig } from "axios";
 
 import { MovieAPIMovieInfo, MovieAPISearchResult } from "@/types/movie";
 
@@ -10,11 +12,13 @@ const http = axios.create({
 });
 
 export const moviesAPI = {
-  searchMovies: (query: string) =>
+  searchMovies: (query: string, config?: AxiosRequestConfig) =>
     http.get<MovieAPISearchResult>("/search/movie", {
       params: {
         query,
       },
+      ...config,
     }),
-  getMovie: (id: number) => http.get<MovieAPIMovieInfo>(`/movie/${id}`),
+  getMovie: (id: number, config?: AxiosRequestConfig) =>
+    http.get<MovieAPIMovieInfo>(`/movie/${id}`, config),
 };
