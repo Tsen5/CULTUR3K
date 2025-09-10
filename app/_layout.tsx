@@ -1,15 +1,22 @@
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Link, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-
-import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
-
 import "react-native-reanimated";
 
-import "../global.css";
+import { useColorScheme } from "@/hooks/useColorScheme";
+
+import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import "@/global.css";
+
 import "../localization";
 
 export default function RootLayout() {
+  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -21,13 +28,29 @@ export default function RootLayout() {
 
   return (
     <GluestackUIProvider mode="light">
-      <>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(tabs)"
+            options={{
+              header: () => (
+                <Link href="/search" style={{ marginTop: 50 }}>
+                  Search
+                </Link>
+              ),
+            }}
+          />
+          <Stack.Screen
+            name="search"
+            options={{
+              presentation: "modal",
+              headerBackButtonMenuEnabled: true,
+            }}
+          />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
-      </>
+      </ThemeProvider>
     </GluestackUIProvider>
   );
 }
