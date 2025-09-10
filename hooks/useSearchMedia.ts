@@ -1,28 +1,10 @@
 import { booksAPI } from "@/api/books";
 import { moviesAPI } from "@/api/movies";
 import { videoGamesAPI } from "@/api/videoGames";
-import { BookAPISearchResultItem } from "@/types/book";
 import { MediaType } from "@/types/list";
-import { MovieAPISearchResultItem } from "@/types/movie";
-import { VideoGameAPISearchResultItem } from "@/types/videoGame";
+import { SearchResult } from "@/types/search";
 import Fuse, { IFuseOptions } from "fuse.js";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
-export interface SearchResult<T extends MediaType = MediaType> {
-  id: string;
-  name: string;
-  type: T;
-  content: SearchResultContent<T>;
-}
-
-export interface SearchResultContentMap {
-  [MediaType.VIDEO_GAME]: VideoGameAPISearchResultItem;
-  [MediaType.MOVIE]: MovieAPISearchResultItem;
-  [MediaType.BOOK]: BookAPISearchResultItem;
-}
-
-export type SearchResultContent<T extends MediaType> =
-  SearchResultContentMap[T];
 
 export interface UseSearchMediaProps {
   query: string;
@@ -43,6 +25,7 @@ const useSearchMedia = ({
   types = DEFAULT_TYPES,
 }: UseSearchMediaProps) => {
   const [result, setResult] = useState<SearchResult<MediaType>[]>([]);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const searchDebounce = useRef<ReturnType<typeof setTimeout>>(null);
   const moviesController = useRef<AbortController>(null);
@@ -100,8 +83,10 @@ const useSearchMedia = ({
   }, []);
 
   const handleSearch = useCallback(async () => {
+    setIsSearching(true);
     if (parsedQuery.length === 0) {
       setResult([]);
+      setIsSearching(false);
       return;
     }
 
@@ -145,6 +130,7 @@ const useSearchMedia = ({
       .map((item) => item.item);
 
     setResult(sortedResult);
+    setIsSearching(false);
   }, [parsedQuery, types, searchVideoGames, searchMovies, searchBooks]);
 
   useEffect(() => {
@@ -171,7 +157,7 @@ const useSearchMedia = ({
     };
   }, [handleSearch]);
 
-  return { result };
+  return { result, isSearching };
 };
 
 export default useSearchMedia;
