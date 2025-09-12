@@ -43,7 +43,9 @@
             "android": ["en", "fr"]
           }
         }
-      ]
+      ],
+      "expo-font",
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true
