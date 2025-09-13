@@ -20,4 +20,8 @@ export default {
   separator: {
     dot: "∙",
   },
+  label: {
+    addToWatchlist: "Add to watchlist",
+    addToFavorites: "Add to favorites",
+  },
 };

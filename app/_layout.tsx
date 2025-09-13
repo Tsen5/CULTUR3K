@@ -4,7 +4,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Link, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
@@ -13,6 +13,8 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 
+import RootHeader from "@/components/features/root-header/root-header";
+import SearchMedia from "@/components/features/search-media/search-media";
 import "../localization";
 
 export default function RootLayout() {
@@ -30,26 +32,11 @@ export default function RootLayout() {
     <GluestackUIProvider mode="light">
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen
-            name="(tabs)"
-            options={{
-              header: () => (
-                <Link href="/search" style={{ marginTop: 50 }}>
-                  Search
-                </Link>
-              ),
-            }}
-          />
-          <Stack.Screen
-            name="search"
-            options={{
-              presentation: "modal",
-              headerBackButtonMenuEnabled: true,
-            }}
-          />
+          <Stack.Screen name="(tabs)" options={{ header: RootHeader }} />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
+        <SearchMedia />
       </ThemeProvider>
     </GluestackUIProvider>
   );

@@ -1,36 +1,33 @@
 import { Button, ButtonIcon } from "@/components/ui/button";
-import { MoreHorizontalIcon } from "lucide-react-native";
+import { Icon } from "@/components/ui/icon";
+import { Menu, MenuItem, MenuItemLabel } from "@/components/ui/menu";
+import { Eye, Heart, MoreVerticalIcon } from "lucide-react-native";
+import { useTranslation } from "react-i18next";
 
 const MoreMenu = () => {
-  // const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { t } = useTranslation("search");
 
   return (
-    <>
-      {/* <Menu
+    <Menu
       placement="bottom"
       offset={5}
-      className="border-0"
       trigger={({ ...triggerProps }) => {
         return (
           <Button variant="link" {...triggerProps}>
-            <ButtonIcon as={MoreHorizontalIcon} />
+            <ButtonIcon as={MoreVerticalIcon} />
           </Button>
         );
       }}
     >
-      <MenuItem key="Add account" textValue="Add account">
-        <Icon as={AddIcon} size="sm" className="mr-2" />
-        <MenuItemLabel size="sm">Add account</MenuItemLabel>
+      <MenuItem key="addToFavorites" textValue={t("label.addToFavorites")}>
+        <Icon as={Heart} size="md" className="mr-2" />
+        <MenuItemLabel size="md">{t("label.addToFavorites")}</MenuItemLabel>
       </MenuItem>
-      <MenuItem key="Community" textValue="Community">
-        <Icon as={GlobeIcon} size="sm" className="mr-2" />
-        <MenuItemLabel size="sm">Community</MenuItemLabel>
+      <MenuItem key="addToWatchlist" textValue={t("label.addToWatchlist")}>
+        <Icon as={Eye} size="md" className="mr-2" />
+        <MenuItemLabel size="md">{t("label.addToWatchlist")}</MenuItemLabel>
       </MenuItem>
-    </Menu> */}
-      <Button variant="link">
-        <ButtonIcon as={MoreHorizontalIcon} />
-      </Button>
-    </>
+    </Menu>
   );
 };
 

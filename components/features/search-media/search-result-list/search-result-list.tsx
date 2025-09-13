@@ -32,7 +32,7 @@ const SearchResultList = ({ result }: SearchResultListProps) => {
     <VirtualizedList<SearchResult>
       onScroll={handleScroll}
       data={result}
-      className={`border-t ${displayBorderTop ? "border-t-primary-500" : "border-t-transparent"}`}
+      className={`w-full border-t ${displayBorderTop ? "border-t-background-300" : "border-t-transparent"}`}
       initialNumToRender={8}
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
